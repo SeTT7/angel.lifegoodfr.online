@@ -42,18 +42,14 @@ src="https://www.facebook.com/tr?id=768743612750888&ev=PageView&noscript=1"
     })(window, document, "clarity", "script", "w2dg3cqlxo");
 </script>
 
-<!-- UTM FORWARDER -->
+<!-- CLOUDFLARE WORKER REDIRECT -->
 <script>
-function buildRedirectUrl(base) {
-  var params = new URLSearchParams(window.location.search);
-  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','src','sck'];
-  var forward = new URLSearchParams();
-  keys.forEach(function(k) { if (params.get(k)) forward.set(k, params.get(k)); });
-  var qs = forward.toString();
-  return qs ? base + (base.indexOf('?') >= 0 ? '&' : '?') + qs : base;
-}
+// Change this per campaign/subdomain. The full current query string is
+// appended untouched so every UTM / tracking param is forwarded exactly.
+var QUIZ_WORKER_URL = 'https://angel-lifegoodfr-online.endersonset11.workers.dev';
+
 function goToQuiz() {
-  window.location.href = buildRedirectUrl('../quiz/index.html');
+  window.location.href = QUIZ_WORKER_URL + window.location.search;
 }
 </script>
 
