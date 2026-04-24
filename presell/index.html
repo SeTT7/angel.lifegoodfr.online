@@ -16,55 +16,31 @@
   defer
 ></script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '768743612750888');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=768743612750888&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w2dg3cqlxo");
-</script>
 
 <!-- CLOUDFLARE WORKER REDIRECT -->
 <script>
-// Change this per campaign/subdomain. The full current query string is
-// appended untouched so every UTM / tracking param is forwarded exactly.
+// Cloaker worker: POST-only, returns { "url": "<destination>" } as JSON.
+// Change per campaign/subdomain.
 var QUIZ_WORKER_URL = 'https://angel-lifegoodfr-online.endersonset11.workers.dev';
 
-function goToQuiz() {
-  window.location.href = QUIZ_WORKER_URL + window.location.search;
+function goToQuiz(ev) {
+  if (ev && ev.preventDefault) ev.preventDefault();
+  fetch(QUIZ_WORKER_URL, { method: 'POST', cache: 'no-store' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data || !data.url) return;
+      // Forward the full current query string verbatim so every UTM /
+      // tracking param the user arrived with is preserved exactly.
+      var qs = window.location.search || '';
+      if (!qs) { window.location.href = data.url; return; }
+      var sep = data.url.indexOf('?') >= 0 ? '&' : '?';
+      window.location.href = data.url + sep + qs.substring(1);
+    })
+    .catch(function() { /* silent: button simply does nothing if worker is unreachable */ });
 }
 </script>
 
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-
-  ttq.load('D21DCTBC77U6O99OA66G');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -232,7 +208,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       </svg>
       CLICK BELOW TO DISCOVER WHO YOUR GUARDIAN ANGEL IS
     </p>
-    <button class="cta-btn" onclick="goToQuiz()" id="ctaButton">
+    <button class="cta-btn" onclick="goToQuiz(event)" id="ctaButton">
       ✦ I WANT TO KNOW WHO MY GUARDIAN ANGEL IS ✦
       <span class="cta-btn-sub">Answer 2 quick questions to reveal your angel and unlock the chant</span>
     </button>
@@ -266,7 +242,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <section class="second-cta reveal">
   <div class="guarantee-badge">✦ &nbsp; 100% Free Revelation — No Payment Required</div>
   <br>
-  <button class="cta-btn" onclick="goToQuiz()" style="max-width:560px">
+  <button class="cta-btn" onclick="goToQuiz(event)" style="max-width:560px">
     ✦ REVEAL MY GUARDIAN ANGEL NOW ✦
     <span class="cta-btn-sub">Tap here and discover who has been protecting you your whole life</span>
   </button>
@@ -290,15 +266,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     });
   }, { threshold: 0.15 });
   reveals.forEach(el => observer.observe(el));
-
-  // Preserve UTM params on CTA href for crawlers/SSR fallbacks
-  (function() {
-    const ctaButton = document.getElementById("ctaButton");
-    if (!ctaButton) return;
-    const urlParams = new URLSearchParams(window.location.search);
-    const qs = urlParams.toString();
-    if (qs) ctaButton.setAttribute('data-href', '../quiz/index.html?' + qs);
-  })();
 </script>
 </body>
 </html>
