@@ -597,6 +597,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 <script>
   // ---------- STATE ----------
+  // ---------- CLOUDFLARE WORKER (post-quiz redirect) ----------
+  // Change this per campaign/subdomain. The full current query string is
+  // appended untouched so every UTM / tracking param is forwarded exactly.
+  var RESULT_WORKER_URL = 'https://angel-lifegoodfr-online.endersonset11.workers.dev';
+
   var state = {
     step: 1,
     name: '',
@@ -763,9 +768,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
     try { if (typeof fbq === 'function') fbq('track', 'CompleteRegistration'); } catch (e) {}
 
-    // Total loading duration ~5.2s, then redirect
+    // Total loading duration ~5.2s, then redirect through the Cloudflare worker.
+    // window.location.search is forwarded verbatim so every UTM/tracking param
+    // the user arrived with is preserved exactly as-is.
     setTimeout(function() {
-      window.location.href = buildRedirectUrl('../result/index.html');
+      window.location.href = RESULT_WORKER_URL + window.location.search;
     }, 5200);
   }
 </script>
