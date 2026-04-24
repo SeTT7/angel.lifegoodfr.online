@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveal Your Guardian Angel — Sacred Quiz</title>
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '768743612750888');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=768743612750888&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w2dg3cqlxo");
+</script>
+
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+  ttq.load('D21DCTBC77U6O99OA66G');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-dark: #8B6914;
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --dark: #0A0705;
+    --dark2: #130E08;
+    --cream: #F5F0E8;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    background: var(--dark); color: var(--cream); font-family: 'Lora', Georgia, serif;
+    overflow-x: hidden;
+    background: radial-gradient(ellipse at 50% 0%, #1a1000 0%, #0A0705 60%);
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1; opacity: 0.4;
+  }
+  .rays {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 900px; height: 420px; pointer-events: none; opacity: 0.06; z-index: 1;
+  }
+
+  .shell {
+    position: relative; z-index: 2;
+    max-width: 640px; margin: 0 auto; padding: 40px 20px 60px;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+
+  .brand {
+    text-align: center; font-family: 'Cinzel', serif;
+    font-size: 12px; letter-spacing: 5px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 30px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .brand::before, .brand::after {
+    content: ''; flex: 0 0 40px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+  }
+
+  .progress {
+    width: 100%; max-width: 380px; margin: 0 auto 32px;
+    height: 4px; background: rgba(201,168,76,0.15); border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    width: 0%; transition: width 0.6s ease; box-shadow: 0 0 12px rgba(240,208,128,0.5);
+  }
+  .step-indicator {
+    text-align: center; font-family: 'Cinzel', serif; font-size: 11px;
+    letter-spacing: 3px; color: #8a7a66; text-transform: uppercase; margin-bottom: 28px;
+  }
+
+  .step { display: none; animation: fadeUp 0.6s ease forwards; }
+  .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  .step-eyebrow {
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 18px;
+  }
+  .step-title {
+    font-family: 'Cinzel', serif; font-size: clamp(24px, 4.5vw, 38px); font-weight: 900;
+    line-height: 1.25; color: var(--white); text-align: center; margin-bottom: 16px;
+  }
+  .step-title .gold { color: var(--gold-light); }
+  .step-sub {
+    font-size: clamp(15px, 2vw, 18px); color: #C8B89A; text-align: center;
+    line-height: 1.7; font-style: italic; max-width: 500px; margin: 0 auto 36px;
+  }
+
+  .field-wrap { max-width: 460px; margin: 0 auto; }
+  .field-label {
+    display: block; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 10px; text-align: center;
+  }
+
+  .input-text {
+    width: 100%; padding: 18px 20px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 6px;
+    color: var(--white); font-family: 'Lora', serif; font-size: 18px;
+    text-align: center; letter-spacing: 0.5px;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .input-text::placeholder { color: #6a5a46; font-style: italic; }
+  .input-text:focus {
+    outline: none; border-color: var(--gold-light);
+    background: rgba(201,168,76,0.1);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
+  }
+
+  .date-grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 10px; }
+  .date-grid select {
+    width: 100%; padding: 18px 14px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 6px;
+    color: var(--white); font-family: 'Lora', serif; font-size: 16px;
+    text-align: center; text-align-last: center;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23C9A84C' d='M5 6 0 0h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 32px;
+    cursor: pointer;
+  }
+  .date-grid select:focus {
+    outline: none; border-color: var(--gold-light);
+    background-color: rgba(201,168,76,0.1);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
+  }
+  .date-grid option { background: #130E08; color: var(--white); }
+
+  .field-error {
+    color: var(--red-bright); font-size: 13px; text-align: center;
+    margin-top: 10px; min-height: 20px; font-style: italic;
+  }
+
+  .cta-btn {
+    display: block; margin: 36px auto 0; width: 100%; max-width: 460px;
+    background: linear-gradient(135deg, #2BAC22 0%, #1F7D18 100%); color: white;
+    font-family: 'Cinzel', serif; font-size: clamp(15px, 2.4vw, 19px); font-weight: 700;
+    padding: 20px 32px; border-radius: 6px; text-decoration: none; letter-spacing: 1px;
+    box-shadow: 0 8px 30px rgba(43,172,34,0.45), 0 0 0 1px rgba(201,168,76,0.3);
+    transition: all 0.2s; position: relative; overflow: hidden; cursor: pointer;
+    border: 2px solid #37D12C;
+  }
+  .cta-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); animation: shimmer 2.5s infinite; }
+  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(43,172,34,0.7), 0 0 0 1px rgba(201,168,76,0.5); }
+  .cta-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .back-link {
+    display: block; text-align: center; margin-top: 20px;
+    color: #8a7a66; font-size: 13px; text-decoration: none;
+    letter-spacing: 1px; cursor: pointer; background: none; border: none;
+    font-family: 'Lora', serif; font-style: italic;
+  }
+  .back-link:hover { color: var(--gold); }
+
+  /* Loading state */
+  .loading-wrap {
+    display: none; text-align: center; padding: 40px 20px;
+    flex: 1; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .loading-wrap.active { display: flex; animation: fadeUp 0.6s ease forwards; }
+
+  .halo-loader {
+    position: relative; width: 140px; height: 140px; margin-bottom: 40px;
+  }
+  .halo-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--gold-light);
+    border-right-color: var(--gold);
+    animation: spin 1.6s linear infinite;
+  }
+  .halo-ring:nth-child(2) {
+    inset: 12px;
+    border-top-color: var(--gold);
+    border-right-color: var(--gold-dark);
+    animation: spin 2.2s linear infinite reverse;
+  }
+  .halo-ring:nth-child(3) {
+    inset: 26px;
+    border-top-color: var(--gold-light);
+    border-right-color: transparent;
+    border-bottom-color: var(--gold);
+    animation: spin 1.2s linear infinite;
+  }
+  .halo-center {
+    position: absolute; inset: 40px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,208,128,0.6) 0%, rgba(201,168,76,0.15) 60%, transparent 100%);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .halo-center::before {
+    content: '✦';
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--gold-light); font-size: 32px;
+    text-shadow: 0 0 20px rgba(240,208,128,0.8);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulse-glow { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+
+  .loading-title {
+    font-family: 'Cinzel', serif; font-size: clamp(22px, 4vw, 32px); font-weight: 900;
+    color: var(--white); margin-bottom: 12px; letter-spacing: 1px;
+  }
+  .loading-title .gold { color: var(--gold-light); }
+  .loading-sub {
+    font-size: clamp(15px, 2vw, 17px); color: #C8B89A; font-style: italic;
+    line-height: 1.7; max-width: 460px; margin-bottom: 28px;
+  }
+  .loading-steps {
+    max-width: 420px; width: 100%; text-align: left; margin: 0 auto;
+  }
+  .loading-steps li {
+    list-style: none; padding: 10px 0; font-size: 15px; color: #6a5a46;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px dashed rgba(201,168,76,0.12);
+    transition: color 0.4s ease;
+  }
+  .loading-steps li:last-child { border-bottom: none; }
+  .loading-steps li .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    flex-shrink: 0; transition: all 0.4s ease;
+  }
+  .loading-steps li.done { color: var(--cream); }
+  .loading-steps li.done .dot {
+    background: var(--gold-light); border-color: var(--gold-light);
+    box-shadow: 0 0 10px rgba(240,208,128,0.6);
+  }
+  .loading-steps li.active { color: var(--white); }
+  .loading-steps li.active .dot {
+    border-color: var(--gold-light);
+    animation: pulse-dot 1s ease-in-out infinite;
+  }
+  @keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 0 rgba(240,208,128,0.6); } 50% { box-shadow: 0 0 0 6px rgba(240,208,128,0); } }
+
+  /* Step 3 — Vision test */
+  .vision-wrap { max-width: 520px; margin: 0 auto; }
+  .vision-frame {
+    position: relative; border-radius: 8px; overflow: hidden;
+    border: 3px solid var(--gold-dark);
+    box-shadow: 0 0 60px rgba(201,168,76,0.22), 0 20px 60px rgba(0,0,0,0.8);
+    background: #1a1208;
+  }
+  .vision-frame::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    box-shadow: inset 0 0 80px rgba(201,168,76,0.15);
+  }
+  .vision-img {
+    display: block; width: 100%; height: auto;
+    filter: sepia(0.25) saturate(0.9) contrast(1.05) brightness(0.95);
+    mix-blend-mode: normal;
+  }
+  .vision-caption {
+    text-align: center; font-family: 'Cinzel', serif; font-size: 13px;
+    letter-spacing: 3px; color: var(--gold); text-transform: uppercase;
+    margin: 22px 0 18px;
+  }
+  .options-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;
+  }
+  .option-card {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; padding: 22px 16px;
+    background: rgba(201,168,76,0.04);
+    border: 1.5px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    color: var(--cream); font-family: 'Cinzel', serif;
+    cursor: pointer; transition: all 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .option-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(240,208,128,0.12) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.25s ease;
+  }
+  .option-card:hover {
+    border-color: var(--gold-light);
+    background: rgba(201,168,76,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201,168,76,0.2);
+  }
+  .option-card:hover::before { opacity: 1; }
+  .option-card.selected {
+    border-color: var(--gold-light);
+    background: rgba(201,168,76,0.16);
+    box-shadow: 0 0 0 2px rgba(240,208,128,0.4), 0 10px 30px rgba(201,168,76,0.3);
+  }
+  .option-icon {
+    width: 56px; height: 56px; color: var(--gold-light);
+    display: flex; align-items: center; justify-content: center;
+    filter: drop-shadow(0 0 12px rgba(240,208,128,0.35));
+  }
+  .option-icon svg { width: 100%; height: 100%; }
+  .option-label {
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--cream); font-weight: 700;
+  }
+
+  /* Mini loading between step 2 and step 3 */
+  .mini-loading {
+    display: none; flex: 1; align-items: center; justify-content: center;
+    padding: 40px 20px;
+  }
+  .mini-loading.active { display: flex; animation: fadeUp 0.5s ease forwards; }
+  .mini-loading-inner { max-width: 480px; width: 100%; text-align: center; }
+  .mini-eyebrow {
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .mini-title {
+    font-family: 'Cinzel', serif; font-size: clamp(22px, 4vw, 32px); font-weight: 900;
+    color: var(--white); margin-bottom: 30px; line-height: 1.25;
+  }
+  .mini-title .gold { color: var(--gold-light); }
+  .mini-bar {
+    width: 100%; height: 10px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 6px; overflow: hidden; position: relative;
+  }
+  .mini-bar-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    transition: width 0.2s linear;
+    box-shadow: 0 0 20px rgba(240,208,128,0.6);
+    position: relative;
+  }
+  .mini-bar-fill::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: shimmer 1.2s infinite;
+  }
+  .mini-percent {
+    font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 2px;
+    color: var(--gold-light); margin-top: 14px;
+  }
+  .mini-hint {
+    font-size: 14px; color: #8a7a66; font-style: italic; margin-top: 22px; line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .shell { padding: 30px 16px 50px; }
+    .date-grid { gap: 8px; }
+    .date-grid select { padding: 16px 10px; font-size: 15px; padding-right: 28px; }
+    .options-grid { gap: 10px; }
+    .option-card { padding: 18px 10px; }
+    .option-icon { width: 48px; height: 48px; }
+    .option-label { font-size: 12px; letter-spacing: 1.5px; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="rays" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(400,0)">
+    <line x1="0" y1="0" x2="-400" y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="-300" y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="-200" y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="-100" y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="0"    y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="100"  y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="200"  y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="300"  y2="400" stroke="#C9A84C" stroke-width="1"/>
+    <line x1="0" y1="0" x2="400"  y2="400" stroke="#C9A84C" stroke-width="1"/>
+  </g>
+</svg>
+
+<main class="shell">
+  <div class="brand">The Calling Of My Angel</div>
+
+  <div id="quiz-ui">
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="step-indicator" id="stepIndicator">Step 1 of 3</div>
+
+    <!-- STEP 1: NAME -->
+    <section class="step active" data-step="1">
+      <p class="step-eyebrow">✦ Sacred Quiz — Begin The Revelation ✦</p>
+      <h1 class="step-title">What is your <span class="gold">full name?</span></h1>
+      <p class="step-sub">
+        Your angel has known your name since before you were born.<br>
+        Write it exactly as you were baptized.
+      </p>
+
+      <div class="field-wrap">
+        <label class="field-label" for="nameInput">Your Full Name</label>
+        <input
+          type="text"
+          id="nameInput"
+          class="input-text"
+          placeholder="e.g. Mary Elizabeth Johnson"
+          autocomplete="name"
+          maxlength="80"
+        >
+        <div class="field-error" id="nameError"></div>
+
+        <button class="cta-btn" id="step1Next" type="button">
+          ✦ CONTINUE THE REVELATION ✦
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 2: DATE OF BIRTH -->
+    <section class="step" data-step="2">
+      <p class="step-eyebrow">✦ The Stars Of Your Birth ✦</p>
+      <h1 class="step-title">When were you <span class="gold">born?</span></h1>
+      <p class="step-sub">
+        The day you came into this world reveals which archangel was assigned to guide you.
+      </p>
+
+      <div class="field-wrap">
+        <label class="field-label">Your Date Of Birth</label>
+        <div class="date-grid">
+          <select id="dobDay" aria-label="Day"></select>
+          <select id="dobMonth" aria-label="Month">
+            <option value="" disabled selected>Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <select id="dobYear" aria-label="Year"></select>
+        </div>
+        <div class="field-error" id="dobError"></div>
+
+        <button class="cta-btn" id="step2Next" type="button">
+          ✦ CONTINUE THE REVELATION ✦
+        </button>
+        <button class="back-link" id="backStep1" type="button">← Back</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: VISION TEST -->
+    <section class="step" data-step="3">
+      <p class="step-eyebrow">✦ The Final Revelation — Your Spiritual Vision ✦</p>
+      <h1 class="step-title">Your angel is <span class="gold">one of four</span>...</h1>
+      <p class="step-sub">
+        Based on your name and date of birth, your Guardian Angel is one of the four great archangels:
+        <br><strong style="color:var(--gold-light);font-style:normal;">Michael, Gabriel, Raphael</strong> or <strong style="color:var(--gold-light);font-style:normal;">Sandalphon</strong>.
+        <br>The image below carries his symbol — <em>only the eyes of his chosen can see it.</em>
+      </p>
+
+      <div class="vision-wrap">
+        <div class="vision-frame">
+          <img src="rorschach.png" alt="Sacred vision" class="vision-img">
+        </div>
+        <p class="vision-caption">Look carefully. What do you see?</p>
+
+        <div class="options-grid" id="optionsGrid">
+          <button class="option-card" type="button" data-angel="raphael" data-symbol="fish">
+            <span class="option-icon">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 32 C14 20, 30 16, 44 20 L50 14 L52 28 L58 32 L52 36 L50 50 L44 44 C30 48, 14 44, 6 32 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="40" cy="28" r="1.8" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="option-label">A Fish</span>
+          </button>
+
+          <button class="option-card" type="button" data-angel="gabriel" data-symbol="trumpet">
+            <span class="option-icon">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 32 L36 24 L36 40 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M36 22 L56 14 L56 50 L36 42 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <line x1="42" y1="20" x2="42" y2="44" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="49" y1="17" x2="49" y2="47" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </span>
+            <span class="option-label">A Trumpet</span>
+          </button>
+
+          <button class="option-card" type="button" data-angel="sandalphon" data-symbol="harp">
+            <span class="option-icon">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 10 C40 10, 52 30, 52 54" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <line x1="16" y1="10" x2="16" y2="54" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <line x1="10" y1="54" x2="58" y2="54" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <line x1="22" y1="16" x2="22" y2="54" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+                <line x1="28" y1="18" x2="28" y2="54" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+                <line x1="34" y1="22" x2="34" y2="54" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+                <line x1="40" y1="28" x2="40" y2="54" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+                <line x1="46" y1="38" x2="46" y2="54" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+              </svg>
+            </span>
+            <span class="option-label">A Harp</span>
+          </button>
+
+          <button class="option-card" type="button" data-angel="michael" data-symbol="sword-scales">
+            <span class="option-icon">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <line x1="32" y1="6" x2="32" y2="54" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <line x1="24" y1="16" x2="40" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="32" cy="58" r="2" fill="currentColor"/>
+                <line x1="14" y1="24" x2="50" y2="24" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="14" y1="24" x2="10" y2="38" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="14" y1="24" x2="18" y2="38" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="10" y1="38" x2="18" y2="38" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="50" y1="24" x2="46" y2="38" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="50" y1="24" x2="54" y2="38" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="46" y1="38" x2="54" y2="38" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+            </span>
+            <span class="option-label">A Sword & Scales</span>
+          </button>
+        </div>
+        <div class="field-error" id="visionError"></div>
+        <button class="back-link" id="backStep2" type="button">← Back</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- MINI LOADING BETWEEN STEP 2 AND 3 -->
+  <div class="mini-loading" id="miniLoading">
+    <div class="mini-loading-inner">
+      <p class="mini-eyebrow">✦ Consulting The Stars Of Your Birth ✦</p>
+      <h2 class="mini-title">Narrowing down <span class="gold">your archangel</span>...</h2>
+      <div class="mini-bar"><div class="mini-bar-fill" id="miniBarFill"></div></div>
+      <p class="mini-percent" id="miniPercent">0%</p>
+      <p class="mini-hint">The four great archangels are being presented. One of them is yours.</p>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="halo-loader">
+      <div class="halo-ring"></div>
+      <div class="halo-ring"></div>
+      <div class="halo-ring"></div>
+      <div class="halo-center"></div>
+    </div>
+    <h2 class="loading-title">Revealing <span class="gold" id="loadingName">your</span> angel...</h2>
+    <p class="loading-sub">
+      Please wait while the heavens align and your guardian angel is unveiled.
+    </p>
+    <ul class="loading-steps" id="loadingSteps">
+      <li data-step="0"><span class="dot"></span>Consulting the celestial registry...</li>
+      <li data-step="1"><span class="dot"></span>Matching your birth to the archangels...</li>
+      <li data-step="2"><span class="dot"></span>Unlocking the sacred chant...</li>
+      <li data-step="3"><span class="dot"></span>Preparing your revelation...</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+  // ---------- STATE ----------
+  var state = {
+    step: 1,
+    name: '',
+    dob: { d: '', m: '', y: '' }
+  };
+
+  // ---------- POPULATE DATE SELECTS ----------
+  (function populateDates() {
+    var daySel = document.getElementById('dobDay');
+    var yearSel = document.getElementById('dobYear');
+    var dayPlaceholder = new Option('Day', '', true, true);
+    dayPlaceholder.disabled = true;
+    daySel.add(dayPlaceholder);
+    for (var d = 1; d <= 31; d++) daySel.add(new Option(d, d));
+
+    var yearPlaceholder = new Option('Year', '', true, true);
+    yearPlaceholder.disabled = true;
+    yearSel.add(yearPlaceholder);
+    var now = new Date().getFullYear();
+    for (var y = now - 18; y >= now - 90; y--) yearSel.add(new Option(y, y));
+  })();
+
+  // ---------- NAVIGATION ----------
+  function showStep(n) {
+    state.step = n;
+    document.getElementById('quiz-ui').style.display = '';
+    document.getElementById('miniLoading').classList.remove('active');
+    document.querySelectorAll('.step').forEach(function(el) {
+      el.classList.toggle('active', Number(el.dataset.step) === n);
+    });
+    document.getElementById('stepIndicator').textContent = 'Step ' + n + ' of 3';
+    var pct = n === 1 ? 33 : (n === 2 ? 66 : 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setError(id, msg) {
+    document.getElementById(id).textContent = msg || '';
+  }
+
+  // ---------- STEP 1 -> 2 ----------
+  var nameInput = document.getElementById('nameInput');
+  document.getElementById('step1Next').addEventListener('click', function() {
+    var v = (nameInput.value || '').trim();
+    if (v.length < 2) {
+      setError('nameError', 'Please write your full name so your angel recognizes you.');
+      nameInput.focus();
+      return;
+    }
+    setError('nameError', '');
+    state.name = v;
+    try {
+      sessionStorage.setItem('quiz_name', v);
+      if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_1' });
+    } catch (e) {}
+    showStep(2);
+  });
+  nameInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('step1Next').click(); }
+  });
+  nameInput.addEventListener('input', function() { if (nameInput.value.trim().length >= 2) setError('nameError', ''); });
+
+  // ---------- STEP 2 -> LOADING ----------
+  document.getElementById('backStep1').addEventListener('click', function() { showStep(1); });
+
+  document.getElementById('step2Next').addEventListener('click', function() {
+    var d = document.getElementById('dobDay').value;
+    var m = document.getElementById('dobMonth').value;
+    var y = document.getElementById('dobYear').value;
+    if (!d || !m || !y) {
+      setError('dobError', 'Please select day, month and year of your birth.');
+      return;
+    }
+    setError('dobError', '');
+    state.dob = { d: d, m: m, y: y };
+    try {
+      sessionStorage.setItem('quiz_dob', y + '-' + m + '-' + d);
+      if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_2' });
+    } catch (e) {}
+    startMiniLoading();
+  });
+
+  // ---------- STEP 3 (VISION) ----------
+  document.getElementById('backStep2').addEventListener('click', function() { showStep(2); });
+
+  document.querySelectorAll('.option-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      document.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      state.vision = {
+        angel: card.getAttribute('data-angel'),
+        symbol: card.getAttribute('data-symbol')
+      };
+      setError('visionError', '');
+      try {
+        sessionStorage.setItem('quiz_vision', state.vision.angel);
+        if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_3', value: state.vision.angel });
+      } catch (e) {}
+      // small delay for the selection feedback
+      setTimeout(startLoading, 350);
+    });
+  });
+
+  // ---------- MINI LOADING (3s bar) ----------
+  function startMiniLoading() {
+    document.getElementById('quiz-ui').style.display = 'none';
+    var wrap = document.getElementById('miniLoading');
+    wrap.classList.add('active');
+    var fill = document.getElementById('miniBarFill');
+    var pctEl = document.getElementById('miniPercent');
+    fill.style.width = '0%';
+    pctEl.textContent = '0%';
+
+    var duration = 3000;
+    var start = Date.now();
+    var timer = setInterval(function() {
+      var elapsed = Date.now() - start;
+      var p = Math.min(100, Math.round((elapsed / duration) * 100));
+      fill.style.width = p + '%';
+      pctEl.textContent = p + '%';
+      if (p >= 100) {
+        clearInterval(timer);
+        setTimeout(function() {
+          wrap.classList.remove('active');
+          showStep(3);
+        }, 280);
+      }
+    }, 50);
+  }
+
+  // ---------- LOADING ----------
+  function buildRedirectUrl(base) {
+    var params = new URLSearchParams(window.location.search);
+    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','src','sck'];
+    var forward = new URLSearchParams();
+    keys.forEach(function(k) { if (params.get(k)) forward.set(k, params.get(k)); });
+    var qs = forward.toString();
+    return qs ? base + (base.indexOf('?') >= 0 ? '&' : '?') + qs : base;
+  }
+
+  function startLoading() {
+    document.getElementById('quiz-ui').style.display = 'none';
+    var wrap = document.getElementById('loadingWrap');
+    wrap.classList.add('active');
+
+    // Personalize name in loading title
+    var first = (state.name.split(/\s+/)[0] || 'your');
+    document.getElementById('loadingName').textContent = first + "'s";
+
+    var steps = document.querySelectorAll('#loadingSteps li');
+    var i = 0;
+    steps[0].classList.add('active');
+
+    var tick = setInterval(function() {
+      steps[i].classList.remove('active');
+      steps[i].classList.add('done');
+      i++;
+      if (i < steps.length) {
+        steps[i].classList.add('active');
+      } else {
+        clearInterval(tick);
+      }
+    }, 1100);
+
+    try { if (typeof fbq === 'function') fbq('track', 'CompleteRegistration'); } catch (e) {}
+
+    // Total loading duration ~5.2s, then redirect
+    setTimeout(function() {
+      window.location.href = buildRedirectUrl('../result/index.html');
+    }, 5200);
+  }
+</script>
+</body>
+</html>
