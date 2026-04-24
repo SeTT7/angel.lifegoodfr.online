@@ -13,45 +13,6 @@
   defer
 ></script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '768743612750888');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=768743612750888&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w2dg3cqlxo");
-</script>
-
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-
-  ttq.load('D21DCTBC77U6O99OA66G');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
-
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -596,12 +557,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </main>
 
 <script>
-  // ---------- STATE ----------
-  // ---------- CLOUDFLARE WORKER (post-quiz redirect) ----------
-  // Change this per campaign/subdomain. The full current query string is
-  // appended untouched so every UTM / tracking param is forwarded exactly.
-  var RESULT_WORKER_URL = 'https://angel-lifegoodfr-online.endersonset11.workers.dev';
-
   var state = {
     step: 1,
     name: '',
@@ -653,10 +608,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
     setError('nameError', '');
     state.name = v;
-    try {
-      sessionStorage.setItem('quiz_name', v);
-      if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_1' });
-    } catch (e) {}
+    try { sessionStorage.setItem('quiz_name', v); } catch (e) {}
     showStep(2);
   });
   nameInput.addEventListener('keydown', function(e) {
@@ -677,10 +629,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
     setError('dobError', '');
     state.dob = { d: d, m: m, y: y };
-    try {
-      sessionStorage.setItem('quiz_dob', y + '-' + m + '-' + d);
-      if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_2' });
-    } catch (e) {}
+    try { sessionStorage.setItem('quiz_dob', y + '-' + m + '-' + d); } catch (e) {}
     startMiniLoading();
   });
 
@@ -696,10 +645,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         symbol: card.getAttribute('data-symbol')
       };
       setError('visionError', '');
-      try {
-        sessionStorage.setItem('quiz_vision', state.vision.angel);
-        if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'quiz_step_3', value: state.vision.angel });
-      } catch (e) {}
+      try { sessionStorage.setItem('quiz_vision', state.vision.angel); } catch (e) {}
       // small delay for the selection feedback
       setTimeout(startLoading, 350);
     });
@@ -732,7 +678,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }, 50);
   }
 
-  // ---------- LOADING ----------
+  // ---------- URL helpers ----------
   function buildRedirectUrl(base) {
     var params = new URLSearchParams(window.location.search);
     var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','src','sck'];
@@ -742,6 +688,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     return qs ? base + (base.indexOf('?') >= 0 ? '&' : '?') + qs : base;
   }
 
+  // ---------- FINAL LOADING (halo) ----------
   function startLoading() {
     document.getElementById('quiz-ui').style.display = 'none';
     var wrap = document.getElementById('loadingWrap');
@@ -766,13 +713,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       }
     }, 1100);
 
-    try { if (typeof fbq === 'function') fbq('track', 'CompleteRegistration'); } catch (e) {}
-
-    // Total loading duration ~5.2s, then redirect through the Cloudflare worker.
-    // window.location.search is forwarded verbatim so every UTM/tracking param
-    // the user arrived with is preserved exactly as-is.
+    // Total loading duration ~5.2s, then redirect
     setTimeout(function() {
-      window.location.href = RESULT_WORKER_URL + window.location.search;
+      window.location.href = buildRedirectUrl('../result/index.html');
     }, 5200);
   }
 </script>
