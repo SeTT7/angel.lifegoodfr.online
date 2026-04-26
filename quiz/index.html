@@ -4,19 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reveal Your Guardian Angel — Sacred Quiz</title>
-  <!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-
-
-  ttq.load('D7M80VRC77U9TECL929G');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
 
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
@@ -126,26 +113,58 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
   }
 
-  .date-grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 10px; }
-  .date-grid select {
+  /* Date grid: month / day / year (US order) */
+  .date-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 10px; }
+
+  /* Custom dropdown (replaces native <select> so iOS taps select instantly) */
+  .dd { position: relative; }
+  .dd-trigger {
     width: 100%; padding: 18px 14px;
     background: rgba(201,168,76,0.06);
     border: 1px solid rgba(201,168,76,0.35);
     border-radius: 6px;
     color: var(--white); font-family: 'Lora', serif; font-size: 16px;
-    text-align: center; text-align-last: center;
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23C9A84C' d='M5 6 0 0h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 14px center;
-    padding-right: 32px;
     cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   }
-  .date-grid select:focus {
-    outline: none; border-color: var(--gold-light);
-    background-color: rgba(201,168,76,0.1);
+  .dd-trigger:focus { outline: none; }
+  .dd.open .dd-trigger,
+  .dd-trigger:hover {
+    border-color: var(--gold-light);
+    background: rgba(201,168,76,0.1);
     box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
   }
-  .date-grid option { background: #130E08; color: var(--white); }
+  .dd-value { color: var(--white); }
+  .dd[data-value=""] .dd-value { color: #6a5a46; font-style: italic; }
+  .dd-caret { color: var(--gold); font-size: 11px; transition: transform 0.2s; }
+  .dd.open .dd-caret { transform: rotate(180deg); }
+  .dd-panel {
+    display: none;
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: #130E08;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 6px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+    max-height: 240px; overflow-y: auto;
+    z-index: 50;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dd.open .dd-panel { display: block; animation: ddOpen 0.18s ease; }
+  @keyframes ddOpen { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .dd-option {
+    display: block; width: 100%;
+    padding: 12px 14px;
+    background: transparent; border: none;
+    color: var(--cream); font-family: 'Lora', serif; font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: background 0.15s, color 0.15s;
+  }
+  .dd-option:last-child { border-bottom: none; }
+  .dd-option:hover, .dd-option:focus { outline: none; background: rgba(201,168,76,0.12); color: var(--gold-light); }
+  .dd-option.selected { background: rgba(201,168,76,0.2); color: var(--gold-light); }
 
   .field-error {
     color: var(--red-bright); font-size: 13px; text-align: center;
@@ -362,7 +381,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   @media (max-width: 600px) {
     .shell { padding: 30px 16px 50px; }
     .date-grid { gap: 8px; }
-    .date-grid select { padding: 16px 10px; font-size: 15px; padding-right: 28px; }
+    .dd-trigger { padding: 16px 10px; font-size: 15px; }
+    .dd-option { padding: 14px 10px; font-size: 15px; }
     .options-grid { gap: 10px; }
     .option-card { padding: 18px 10px; }
     .option-icon { width: 48px; height: 48px; }
@@ -431,23 +451,27 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <div class="field-wrap">
         <label class="field-label">Your Date Of Birth</label>
         <div class="date-grid">
-          <select id="dobDay" aria-label="Day"></select>
-          <select id="dobMonth" aria-label="Month">
-            <option value="" disabled selected>Month</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select>
-          <select id="dobYear" aria-label="Year"></select>
+          <div class="dd" data-name="month" data-value="">
+            <button class="dd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Month">
+              <span class="dd-value">Month</span>
+              <span class="dd-caret">▾</span>
+            </button>
+            <div class="dd-panel" role="listbox"></div>
+          </div>
+          <div class="dd" data-name="day" data-value="">
+            <button class="dd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Day">
+              <span class="dd-value">Day</span>
+              <span class="dd-caret">▾</span>
+            </button>
+            <div class="dd-panel" role="listbox"></div>
+          </div>
+          <div class="dd" data-name="year" data-value="">
+            <button class="dd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Year">
+              <span class="dd-value">Year</span>
+              <span class="dd-caret">▾</span>
+            </button>
+            <div class="dd-panel" role="listbox"></div>
+          </div>
         </div>
         <div class="field-error" id="dobError"></div>
 
@@ -577,21 +601,85 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     dob: { d: '', m: '', y: '' }
   };
 
-  // ---------- POPULATE DATE SELECTS ----------
-  (function populateDates() {
-    var daySel = document.getElementById('dobDay');
-    var yearSel = document.getElementById('dobYear');
-    var dayPlaceholder = new Option('Day', '', true, true);
-    dayPlaceholder.disabled = true;
-    daySel.add(dayPlaceholder);
-    for (var d = 1; d <= 31; d++) daySel.add(new Option(d, d));
+  // ---------- CUSTOM DROPDOWNS (replaces native <select> for instant tap on iOS) ----------
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-    var yearPlaceholder = new Option('Year', '', true, true);
-    yearPlaceholder.disabled = true;
-    yearSel.add(yearPlaceholder);
-    var now = new Date().getFullYear();
-    for (var y = now - 18; y >= now - 90; y--) yearSel.add(new Option(y, y));
+  function ddPopulate(name, options, placeholder) {
+    var dd = document.querySelector('.dd[data-name="' + name + '"]');
+    if (!dd) return;
+    var panel = dd.querySelector('.dd-panel');
+    panel.innerHTML = '';
+    options.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dd-option';
+      btn.setAttribute('role', 'option');
+      btn.setAttribute('data-value', String(opt.value));
+      btn.textContent = opt.label;
+      panel.appendChild(btn);
+    });
+  }
+
+  function ddValue(name) {
+    var dd = document.querySelector('.dd[data-name="' + name + '"]');
+    return dd ? (dd.dataset.value || '') : '';
+  }
+
+  function ddSet(dd, value, label) {
+    dd.dataset.value = value;
+    dd.querySelector('.dd-value').textContent = label;
+    dd.querySelectorAll('.dd-option').forEach(function(o) {
+      o.classList.toggle('selected', o.getAttribute('data-value') === String(value));
+    });
+  }
+
+  function ddClose(dd) {
+    dd.classList.remove('open');
+    dd.querySelector('.dd-trigger').setAttribute('aria-expanded', 'false');
+  }
+
+  function ddOpen(dd) {
+    document.querySelectorAll('.dd.open').forEach(function(other) {
+      if (other !== dd) ddClose(other);
+    });
+    dd.classList.add('open');
+    dd.querySelector('.dd-trigger').setAttribute('aria-expanded', 'true');
+    var sel = dd.querySelector('.dd-option.selected');
+    if (sel) sel.scrollIntoView({ block: 'nearest' });
+  }
+
+  (function populateDates() {
+    ddPopulate('month', MONTHS.map(function(m, i) { return { value: i + 1, label: m }; }));
+    var days = [];
+    for (var d = 1; d <= 31; d++) days.push({ value: d, label: String(d) });
+    ddPopulate('day', days);
+    var years = [];
+    var nowY = new Date().getFullYear();
+    for (var y = nowY - 18; y >= nowY - 90; y--) years.push({ value: y, label: String(y) });
+    ddPopulate('year', years);
   })();
+
+  // Single delegated listener handles all dropdown interactions
+  document.addEventListener('click', function(e) {
+    var trigger = e.target.closest('.dd-trigger');
+    if (trigger) {
+      var dd = trigger.closest('.dd');
+      if (dd.classList.contains('open')) ddClose(dd); else ddOpen(dd);
+      return;
+    }
+    var opt = e.target.closest('.dd-option');
+    if (opt) {
+      var dd2 = opt.closest('.dd');
+      ddSet(dd2, opt.getAttribute('data-value'), opt.textContent);
+      ddClose(dd2);
+      setError('dobError', '');
+      return;
+    }
+    // Click outside any dropdown closes them all
+    if (!e.target.closest('.dd')) {
+      document.querySelectorAll('.dd.open').forEach(ddClose);
+    }
+  });
 
   // ---------- NAVIGATION ----------
   function showStep(n) {
@@ -634,11 +722,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   document.getElementById('backStep1').addEventListener('click', function() { showStep(1); });
 
   document.getElementById('step2Next').addEventListener('click', function() {
-    var d = document.getElementById('dobDay').value;
-    var m = document.getElementById('dobMonth').value;
-    var y = document.getElementById('dobYear').value;
-    if (!d || !m || !y) {
-      setError('dobError', 'Please select day, month and year of your birth.');
+    var m = ddValue('month');
+    var d = ddValue('day');
+    var y = ddValue('year');
+    if (!m || !d || !y) {
+      setError('dobError', 'Please select month, day and year of your birth.');
       return;
     }
     setError('dobError', '');
@@ -733,9 +821,5 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }, 5200);
   }
 </script>
-  <script>
-  ttq.track('ViewContent');
-</script>
-
 </body>
 </html>
