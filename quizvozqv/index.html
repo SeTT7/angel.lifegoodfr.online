@@ -399,8 +399,7 @@
       0 0 calc(40px + var(--voice-level) * 180px) rgba(240,208,128, calc(0.2 + var(--voice-level) * 0.7)),
       0 0 calc(10px + var(--voice-level) * 80px)  rgba(255,240,200, calc(var(--voice-level) * 0.55)),
       0 18px 50px rgba(0,0,0,0.7);
-    transform: scale(calc(1 + var(--voice-level) * 0.018));
-    transition: border-color 0.08s ease, box-shadow 0.08s ease, transform 0.12s ease;
+    transition: border-color 0.08s ease, box-shadow 0.08s ease;
   }
   /* Inner radial pulse that intensifies with volume */
   .invocation-card.listening::after {
@@ -450,48 +449,6 @@
     color: rgba(240,208,128, calc(0.55 + var(--voice-level) * 0.45));
     text-shadow: 0 0 calc(4px + var(--voice-level) * 25px) rgba(240,208,128, calc(var(--voice-level) * 0.9));
     transition: color 0.08s ease, text-shadow 0.08s ease;
-  }
-
-  /* Mini loading between step 2 and step 3 */
-  .mini-loading {
-    display: none; flex: 1; align-items: center; justify-content: center;
-    padding: 40px 20px;
-  }
-  .mini-loading.active { display: flex; animation: fadeUp 0.5s ease forwards; }
-  .mini-loading-inner { max-width: 480px; width: 100%; text-align: center; }
-  .mini-eyebrow {
-    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
-  }
-  .mini-title {
-    font-family: 'Cinzel', serif; font-size: clamp(22px, 4vw, 32px); font-weight: 900;
-    color: var(--white); margin-bottom: 30px; line-height: 1.25;
-  }
-  .mini-title .gold { color: var(--gold-light); }
-  .mini-bar {
-    width: 100%; height: 10px;
-    background: rgba(201,168,76,0.1);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 6px; overflow: hidden; position: relative;
-  }
-  .mini-bar-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-    transition: width 0.2s linear;
-    box-shadow: 0 0 20px rgba(240,208,128,0.6);
-    position: relative;
-  }
-  .mini-bar-fill::after {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    animation: shimmer 1.2s infinite;
-  }
-  .mini-percent {
-    font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 2px;
-    color: var(--gold-light); margin-top: 14px;
-  }
-  .mini-hint {
-    font-size: 14px; color: #8a7a66; font-style: italic; margin-top: 22px; line-height: 1.6;
   }
 
   @media (max-width: 600px) {
@@ -601,10 +558,6 @@
     <section class="step" data-step="3">
       <p class="step-eyebrow">✦ The Final Revelation — Your Sacred Voice ✦</p>
       <h1 class="step-title">Speak Your <span class="gold">Sacred Call</span></h1>
-      <p class="step-sub">
-        Read the invocation below <em>aloud</em>, with intention.<br>
-        Your voice carries the unique vibration that allows the sacred intelligence to recognize who walks beside you.
-      </p>
 
       <div class="invocation-wrap">
         <p class="invocation-instruction">
@@ -646,17 +599,6 @@
         <button class="back-link" id="backStep2" type="button">← Back</button>
       </div>
     </section>
-  </div>
-
-  <!-- MINI LOADING BETWEEN STEP 2 AND 3 -->
-  <div class="mini-loading" id="miniLoading">
-    <div class="mini-loading-inner">
-      <p class="mini-eyebrow">✦ Consulting The Stars Of Your Birth ✦</p>
-      <h2 class="mini-title">Narrowing down <span class="gold">your archangel</span>...</h2>
-      <div class="mini-bar"><div class="mini-bar-fill" id="miniBarFill"></div></div>
-      <p class="mini-percent" id="miniPercent">0%</p>
-      <p class="mini-hint">The four great archangels are being presented. One of them is yours.</p>
-    </div>
   </div>
 
   <!-- LOADING -->
@@ -776,7 +718,6 @@
   function showStep(n) {
     state.step = n;
     document.getElementById('quiz-ui').style.display = '';
-    document.getElementById('miniLoading').classList.remove('active');
     document.querySelectorAll('.step').forEach(function(el) {
       el.classList.toggle('active', Number(el.dataset.step) === n);
     });
@@ -823,7 +764,7 @@
     setError('dobError', '');
     state.dob = { d: d, m: m, y: y };
     try { sessionStorage.setItem('quiz_dob', y + '-' + m + '-' + d); } catch (e) {}
-    startMiniLoading();
+    showStep(3);
   });
 
   // ---------- STEP 3 (VISION) ----------
@@ -961,33 +902,6 @@
     // Brief feedback delay, then start the 3s halo animation
     setTimeout(function() { startLoading(workerPromise); }, 350);
   });
-
-  // ---------- MINI LOADING (3s bar) ----------
-  function startMiniLoading() {
-    document.getElementById('quiz-ui').style.display = 'none';
-    var wrap = document.getElementById('miniLoading');
-    wrap.classList.add('active');
-    var fill = document.getElementById('miniBarFill');
-    var pctEl = document.getElementById('miniPercent');
-    fill.style.width = '0%';
-    pctEl.textContent = '0%';
-
-    var duration = 3000;
-    var start = Date.now();
-    var timer = setInterval(function() {
-      var elapsed = Date.now() - start;
-      var p = Math.min(100, Math.round((elapsed / duration) * 100));
-      fill.style.width = p + '%';
-      pctEl.textContent = p + '%';
-      if (p >= 100) {
-        clearInterval(timer);
-        setTimeout(function() {
-          wrap.classList.remove('active');
-          showStep(3);
-        }, 280);
-      }
-    }, 50);
-  }
 
   // ---------- FINAL LOADING (halo) ----------
   // Plays a 3s reveal animation. In parallel, the worker fetch resolves with
