@@ -16,8 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #C9A84C;
-    --gold-light: #F0D080;
+    --gold: #E2C160;
+    --gold-light: #F8E5B0;
     --gold-dark: #8B6914;
     --red: #C0392B;
     --red-bright: #E74C3C;
@@ -420,33 +420,18 @@
     transition: text-shadow 0.08s ease, color 0.08s ease;
   }
   .invocation-card.listening .invocation-latin {
-    color: rgb(
-      calc(240 + var(--voice-level) * 15),
-      calc(208 + var(--voice-level) * 35),
-      calc(128 + var(--voice-level) * 90)
-    );
-    /* Use transform: scale for the "growing" feel — doesn't affect layout, so no line wrap. */
-    display: inline-block;
-    white-space: nowrap;
-    transform: scale(calc(1 + var(--voice-level) * 0.06));
-    transform-origin: center;
-    text-shadow:
-      0 0 calc(3px  + var(--voice-level) * 22px)  rgba(255,255,255, calc(var(--voice-level) * 0.95)),
-      0 0 calc(12px + var(--voice-level) * 90px)  rgba(240,208,128, calc(0.6 + var(--voice-level) * 0.4)),
-      0 0 calc(28px + var(--voice-level) * 160px) rgba(255,240,200, calc(0.3 + var(--voice-level) * 0.7)),
-      0 0 calc(55px + var(--voice-level) * 260px) rgba(240,208,128, calc(var(--voice-level) * 0.7));
-    transition: text-shadow 0.08s ease, transform 0.08s ease, color 0.08s ease;
-  }
-  /* Once voice is first detected, the Latin phrase locks at max glow.
-     Only the transform: scale (from the rule above) keeps responding to voice. */
-  .invocation-card.listening .invocation-latin.latin-lit {
     color: rgb(255, 243, 218);
+    /* Lit by default — voice level only intensifies the existing glow. No expansion. */
     text-shadow:
-      0 0 22px  rgba(255,255,255, 0.95),
-      0 0 100px rgba(240,208,128, 1.0),
-      0 0 180px rgba(255,240,200, 1.0),
-      0 0 300px rgba(240,208,128, 0.7);
-    /* transform inherits from the dynamic rule above so scale keeps reacting */
+      /* Hot white core — small at rest, grows with voice */
+      0 0 calc(4px + var(--voice-level) * 14px) rgba(255,255,255, calc(0.65 + var(--voice-level) * 0.35)),
+      /* Inner gold — strong baseline, slight bloom on voice */
+      0 0 calc(45px + var(--voice-level) * 60px) rgba(240,208,128, calc(0.85 + var(--voice-level) * 0.15)),
+      /* Wide warm halo */
+      0 0 calc(90px + var(--voice-level) * 110px) rgba(255,240,200, calc(0.55 + var(--voice-level) * 0.45)),
+      /* Ambient outer glow — most reactive layer */
+      0 0 calc(150px + var(--voice-level) * 170px) rgba(240,208,128, calc(0.4 + var(--voice-level) * 0.6));
+    transition: text-shadow 0.1s ease;
   }
 
   .invocation-card.listening .invocation-quote-mark {
@@ -851,8 +836,6 @@
 
         // Smooth out the level so glow doesn't flicker too sharply
         var smoothed = 0;
-        var latinEl = card.querySelector('.invocation-latin');
-        var latinLit = false;
         function tick() {
           analyser.getByteFrequencyData(data);
           var sum = 0;
@@ -865,14 +848,6 @@
           var shaped = Math.pow(raw, 0.65);
           smoothed += (shaped - smoothed) * 0.4;
           card.style.setProperty('--voice-level', smoothed.toFixed(3));
-
-          // Once voice crosses the trigger threshold, lock the Latin glow on
-          // permanently. Only transform: scale keeps reacting to voice.
-          if (!latinLit && smoothed > 0.15 && latinEl) {
-            latinEl.classList.add('latin-lit');
-            latinLit = true;
-          }
-
           micRaf = requestAnimationFrame(tick);
         }
 
