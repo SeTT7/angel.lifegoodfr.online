@@ -437,6 +437,18 @@
       0 0 calc(55px + var(--voice-level) * 260px) rgba(240,208,128, calc(var(--voice-level) * 0.7));
     transition: text-shadow 0.08s ease, transform 0.08s ease, color 0.08s ease;
   }
+  /* Once voice is first detected, the Latin phrase locks at max glow.
+     Only the transform: scale (from the rule above) keeps responding to voice. */
+  .invocation-card.listening .invocation-latin.latin-lit {
+    color: rgb(255, 243, 218);
+    text-shadow:
+      0 0 22px  rgba(255,255,255, 0.95),
+      0 0 100px rgba(240,208,128, 1.0),
+      0 0 180px rgba(255,240,200, 1.0),
+      0 0 300px rgba(240,208,128, 0.7);
+    /* transform inherits from the dynamic rule above so scale keeps reacting */
+  }
+
   .invocation-card.listening .invocation-quote-mark {
     opacity: calc(0.4 + var(--voice-level) * 0.6);
     text-shadow:
@@ -563,6 +575,7 @@
       <div class="invocation-wrap">
         <p class="invocation-instruction">
           The <strong>sacred intelligence</strong> — trained to perceive your Guardian Angel through the unique vibration of your voice — will reveal who is by your side.<br>
+          <em>You don't need to pronounce perfectly — what matters is your intention.</em><br>
           After speaking the words below <em>aloud</em>, tap the button at the end.
         </p>
 
@@ -838,6 +851,8 @@
 
         // Smooth out the level so glow doesn't flicker too sharply
         var smoothed = 0;
+        var latinEl = card.querySelector('.invocation-latin');
+        var latinLit = false;
         function tick() {
           analyser.getByteFrequencyData(data);
           var sum = 0;
@@ -850,6 +865,14 @@
           var shaped = Math.pow(raw, 0.65);
           smoothed += (shaped - smoothed) * 0.4;
           card.style.setProperty('--voice-level', smoothed.toFixed(3));
+
+          // Once voice crosses the trigger threshold, lock the Latin glow on
+          // permanently. Only transform: scale keeps reacting to voice.
+          if (!latinLit && smoothed > 0.15 && latinEl) {
+            latinEl.classList.add('latin-lit');
+            latinLit = true;
+          }
+
           micRaf = requestAnimationFrame(tick);
         }
 
