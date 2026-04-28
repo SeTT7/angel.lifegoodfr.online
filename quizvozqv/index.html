@@ -394,10 +394,11 @@
      JS sets --voice-level (0..1) on the card; CSS scales the glow accordingly. */
   .invocation-card { --voice-level: 0; position: relative; }
   .invocation-card.listening {
-    border-color: rgba(240,208,128, calc(0.45 + var(--voice-level) * 0.55));
+    border-color: rgba(240,208,128, calc(0.5 + var(--voice-level) * 0.5));
     box-shadow:
-      0 0 calc(40px + var(--voice-level) * 180px) rgba(240,208,128, calc(0.2 + var(--voice-level) * 0.7)),
-      0 0 calc(10px + var(--voice-level) * 80px)  rgba(255,240,200, calc(var(--voice-level) * 0.55)),
+      0 0 calc(50px + var(--voice-level) * 280px) rgba(240,208,128, calc(0.25 + var(--voice-level) * 0.75)),
+      0 0 calc(20px + var(--voice-level) * 160px) rgba(255,240,200, calc(var(--voice-level) * 0.85)),
+      0 0 calc(8px  + var(--voice-level) * 60px)  rgba(255,255,255, calc(var(--voice-level) * 0.5)),
       0 18px 50px rgba(0,0,0,0.7);
     transition: border-color 0.08s ease, box-shadow 0.08s ease;
   }
@@ -406,9 +407,10 @@
     content: ''; position: absolute; inset: 0; border-radius: inherit;
     background: radial-gradient(
       circle at 50% 50%,
-      rgba(240,208,128, calc(var(--voice-level) * 0.22)) 0%,
-      rgba(240,208,128, calc(var(--voice-level) * 0.08)) 35%,
-      transparent 70%
+      rgba(255,240,200, calc(var(--voice-level) * 0.35)) 0%,
+      rgba(240,208,128, calc(var(--voice-level) * 0.18)) 35%,
+      rgba(240,208,128, calc(var(--voice-level) * 0.05)) 60%,
+      transparent 80%
     );
     pointer-events: none;
     transition: background 0.08s ease;
@@ -418,36 +420,46 @@
   .invocation-card.listening .invocation-text {
     color: rgb(
       calc(245 + var(--voice-level) * 10),
-      calc(240 + var(--voice-level) * 12),
-      calc(232 + var(--voice-level) * 14)
+      calc(240 + var(--voice-level) * 14),
+      calc(228 + var(--voice-level) * 18)
     );
     text-shadow:
-      0 0 calc(3px + var(--voice-level) * 28px)  rgba(240,208,128, calc(var(--voice-level) * 0.95)),
-      0 0 calc(8px + var(--voice-level) * 60px)  rgba(255,240,200, calc(var(--voice-level) * 0.7)),
-      0 0 calc(20px + var(--voice-level) * 90px) rgba(240,208,128, calc(var(--voice-level) * 0.4));
+      0 0 calc(2px + var(--voice-level) * 16px)  rgba(255,255,255, calc(var(--voice-level) * 0.85)),
+      0 0 calc(6px + var(--voice-level) * 45px)  rgba(240,208,128, calc(var(--voice-level) * 0.95)),
+      0 0 calc(15px + var(--voice-level) * 90px) rgba(255,240,200, calc(var(--voice-level) * 0.75)),
+      0 0 calc(30px + var(--voice-level) * 150px) rgba(240,208,128, calc(var(--voice-level) * 0.5));
     transition: text-shadow 0.08s ease, color 0.08s ease;
   }
   .invocation-card.listening .invocation-latin {
     color: rgb(
       calc(240 + var(--voice-level) * 15),
-      calc(208 + var(--voice-level) * 30),
-      calc(128 + var(--voice-level) * 80)
+      calc(208 + var(--voice-level) * 35),
+      calc(128 + var(--voice-level) * 90)
     );
+    /* Use transform: scale for the "growing" feel — doesn't affect layout, so no line wrap. */
+    display: inline-block;
+    white-space: nowrap;
+    transform: scale(calc(1 + var(--voice-level) * 0.06));
+    transform-origin: center;
     text-shadow:
-      0 0 calc(10px + var(--voice-level) * 70px)  rgba(240,208,128, calc(0.55 + var(--voice-level) * 0.45)),
-      0 0 calc(20px + var(--voice-level) * 120px) rgba(255,240,200, calc(0.25 + var(--voice-level) * 0.7)),
-      0 0 calc(40px + var(--voice-level) * 180px) rgba(240,208,128, calc(var(--voice-level) * 0.5));
-    letter-spacing: calc(4px + var(--voice-level) * 2.5px);
-    transition: text-shadow 0.08s ease, letter-spacing 0.12s ease, color 0.08s ease;
+      0 0 calc(3px  + var(--voice-level) * 22px)  rgba(255,255,255, calc(var(--voice-level) * 0.95)),
+      0 0 calc(12px + var(--voice-level) * 90px)  rgba(240,208,128, calc(0.6 + var(--voice-level) * 0.4)),
+      0 0 calc(28px + var(--voice-level) * 160px) rgba(255,240,200, calc(0.3 + var(--voice-level) * 0.7)),
+      0 0 calc(55px + var(--voice-level) * 260px) rgba(240,208,128, calc(var(--voice-level) * 0.7));
+    transition: text-shadow 0.08s ease, transform 0.08s ease, color 0.08s ease;
   }
   .invocation-card.listening .invocation-quote-mark {
     opacity: calc(0.4 + var(--voice-level) * 0.6);
-    text-shadow: 0 0 calc(var(--voice-level) * 35px) rgba(240,208,128, calc(var(--voice-level) * 0.7));
+    text-shadow:
+      0 0 calc(var(--voice-level) * 20px) rgba(255,255,255, calc(var(--voice-level) * 0.6)),
+      0 0 calc(var(--voice-level) * 50px) rgba(240,208,128, calc(var(--voice-level) * 0.85));
     transition: opacity 0.08s ease, text-shadow 0.08s ease;
   }
   .invocation-card.listening::before {
     color: rgba(240,208,128, calc(0.55 + var(--voice-level) * 0.45));
-    text-shadow: 0 0 calc(4px + var(--voice-level) * 25px) rgba(240,208,128, calc(var(--voice-level) * 0.9));
+    text-shadow:
+      0 0 calc(4px + var(--voice-level) * 30px) rgba(240,208,128, calc(var(--voice-level) * 0.95)),
+      0 0 calc(8px + var(--voice-level) * 60px) rgba(255,240,200, calc(var(--voice-level) * 0.6));
     transition: color 0.08s ease, text-shadow 0.08s ease;
   }
 
@@ -561,8 +573,8 @@
 
       <div class="invocation-wrap">
         <p class="invocation-instruction">
-          After speaking the words below <em>aloud</em>, tap the button at the end.<br>
-          The <strong>sacred intelligence</strong> — trained to perceive your Guardian Angel through the unique vibration of your voice — will reveal who is by your side.
+          The <strong>sacred intelligence</strong> — trained to perceive your Guardian Angel through the unique vibration of your voice — will reveal who is by your side.<br>
+          After speaking the words below <em>aloud</em>, tap the button at the end.
         </p>
 
         <button class="mic-activate" id="micActivate" type="button">
@@ -571,7 +583,7 @@
             <path d="M19 10v1a7 7 0 0 1-14 0v-1"/>
             <line x1="12" y1="19" x2="12" y2="22"/>
           </svg>
-          <span>ACTIVATE THE SACRED LISTENING</span>
+          <span>ACTIVATE &amp; AUTHORIZE THE MICROPHONE</span>
         </button>
         <p class="mic-status" id="micStatus" hidden>
           <span class="mic-dot"></span>
@@ -785,7 +797,7 @@
   var revealBtn = document.getElementById('voiceReveal');
   var revealOriginalLabel = revealBtn.innerHTML;
   revealBtn.disabled = true;
-  revealBtn.innerHTML = '🎤 ACTIVATE THE LISTENING FIRST';
+  revealBtn.innerHTML = '🎤 AUTHORIZE THE MICROPHONE FIRST';
 
   function unlockReveal() {
     revealBtn.disabled = false;
@@ -793,18 +805,8 @@
   }
 
   function startRevealCountdown() {
-    var seconds = 5;
-    function fmt(n) { return n.toString(); }
-    revealBtn.innerHTML = '✦ ANALYZING YOUR VOICE... ' + fmt(seconds) + 's ✦';
-    var iv = setInterval(function() {
-      seconds--;
-      if (seconds > 0) {
-        revealBtn.innerHTML = '✦ ANALYZING YOUR VOICE... ' + fmt(seconds) + 's ✦';
-      } else {
-        clearInterval(iv);
-        unlockReveal();
-      }
-    }, 1000);
+    // Keeps the initial label visible for 5s, then unlocks straight to "REVEAL MY GUARDIAN ANGEL"
+    setTimeout(unlockReveal, 5000);
   }
 
   function stopMic() {
@@ -878,9 +880,19 @@
       })
       .catch(function(err) {
         console.warn('Mic denied or unavailable:', err);
+        // ⚠️ DEBUG ONLY — remove before production. Shows the exact error visibly.
+        var errName = (err && err.name) || 'unknown';
+        var errMsg  = (err && err.message) || 'no message';
         btn.disabled = true;
         btn.style.opacity = '0.55';
-        btn.querySelector('span').textContent = 'MICROPHONE NOT AVAILABLE';
+        btn.querySelector('span').textContent = 'ERR: ' + errName;
+        errorEl.style.color = '#E74C3C';
+        errorEl.style.fontSize = '13px';
+        errorEl.style.padding = '12px';
+        errorEl.style.background = 'rgba(192,57,43,0.1)';
+        errorEl.style.border = '1px solid rgba(192,57,43,0.4)';
+        errorEl.style.borderRadius = '6px';
+        errorEl.textContent = '⚠️ ' + errName + ' — ' + errMsg;
         errorEl.hidden = false;
         // Don't trap the user — let them continue without mic
         unlockReveal();
