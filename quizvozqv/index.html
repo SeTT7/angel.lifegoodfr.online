@@ -392,35 +392,64 @@
 
   /* Voice-reactive glow on the invocation card.
      JS sets --voice-level (0..1) on the card; CSS scales the glow accordingly. */
-  .invocation-card { --voice-level: 0; }
+  .invocation-card { --voice-level: 0; position: relative; }
   .invocation-card.listening {
-    border-color: rgba(240,208,128, calc(0.4 + var(--voice-level) * 0.5));
+    border-color: rgba(240,208,128, calc(0.45 + var(--voice-level) * 0.55));
     box-shadow:
-      0 0 calc(60px + var(--voice-level) * 80px) rgba(240,208,128, calc(0.18 + var(--voice-level) * 0.35)),
+      0 0 calc(40px + var(--voice-level) * 180px) rgba(240,208,128, calc(0.2 + var(--voice-level) * 0.7)),
+      0 0 calc(10px + var(--voice-level) * 80px)  rgba(255,240,200, calc(var(--voice-level) * 0.55)),
       0 18px 50px rgba(0,0,0,0.7);
-    transition: border-color 0.08s ease, box-shadow 0.08s ease;
+    transform: scale(calc(1 + var(--voice-level) * 0.018));
+    transition: border-color 0.08s ease, box-shadow 0.08s ease, transform 0.12s ease;
   }
+  /* Inner radial pulse that intensifies with volume */
+  .invocation-card.listening::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(240,208,128, calc(var(--voice-level) * 0.22)) 0%,
+      rgba(240,208,128, calc(var(--voice-level) * 0.08)) 35%,
+      transparent 70%
+    );
+    pointer-events: none;
+    transition: background 0.08s ease;
+    z-index: 0;
+  }
+  .invocation-card.listening > * { position: relative; z-index: 1; }
   .invocation-card.listening .invocation-text {
     color: rgb(
       calc(245 + var(--voice-level) * 10),
-      calc(240 + var(--voice-level) * 8),
-      calc(232 + var(--voice-level) * 8)
+      calc(240 + var(--voice-level) * 12),
+      calc(232 + var(--voice-level) * 14)
     );
     text-shadow:
-      0 0 calc(2px + var(--voice-level) * 18px) rgba(240,208,128, calc(var(--voice-level) * 0.85)),
-      0 0 calc(6px + var(--voice-level) * 30px) rgba(255,240,200, calc(var(--voice-level) * 0.5));
+      0 0 calc(3px + var(--voice-level) * 28px)  rgba(240,208,128, calc(var(--voice-level) * 0.95)),
+      0 0 calc(8px + var(--voice-level) * 60px)  rgba(255,240,200, calc(var(--voice-level) * 0.7)),
+      0 0 calc(20px + var(--voice-level) * 90px) rgba(240,208,128, calc(var(--voice-level) * 0.4));
     transition: text-shadow 0.08s ease, color 0.08s ease;
   }
   .invocation-card.listening .invocation-latin {
+    color: rgb(
+      calc(240 + var(--voice-level) * 15),
+      calc(208 + var(--voice-level) * 30),
+      calc(128 + var(--voice-level) * 80)
+    );
     text-shadow:
-      0 0 calc(15px + var(--voice-level) * 50px) rgba(240,208,128, calc(0.5 + var(--voice-level) * 0.5)),
-      0 0 calc(4px + var(--voice-level) * 25px) rgba(255,240,200, calc(0.3 + var(--voice-level) * 0.6));
-    letter-spacing: calc(4px + var(--voice-level) * 1.5px);
-    transition: text-shadow 0.08s ease, letter-spacing 0.12s ease;
+      0 0 calc(10px + var(--voice-level) * 70px)  rgba(240,208,128, calc(0.55 + var(--voice-level) * 0.45)),
+      0 0 calc(20px + var(--voice-level) * 120px) rgba(255,240,200, calc(0.25 + var(--voice-level) * 0.7)),
+      0 0 calc(40px + var(--voice-level) * 180px) rgba(240,208,128, calc(var(--voice-level) * 0.5));
+    letter-spacing: calc(4px + var(--voice-level) * 2.5px);
+    transition: text-shadow 0.08s ease, letter-spacing 0.12s ease, color 0.08s ease;
   }
   .invocation-card.listening .invocation-quote-mark {
-    opacity: calc(0.5 + var(--voice-level) * 0.5);
-    transition: opacity 0.08s ease;
+    opacity: calc(0.4 + var(--voice-level) * 0.6);
+    text-shadow: 0 0 calc(var(--voice-level) * 35px) rgba(240,208,128, calc(var(--voice-level) * 0.7));
+    transition: opacity 0.08s ease, text-shadow 0.08s ease;
+  }
+  .invocation-card.listening::before {
+    color: rgba(240,208,128, calc(0.55 + var(--voice-level) * 0.45));
+    text-shadow: 0 0 calc(4px + var(--voice-level) * 25px) rgba(240,208,128, calc(var(--voice-level) * 0.9));
+    transition: color 0.08s ease, text-shadow 0.08s ease;
   }
 
   /* Mini loading between step 2 and step 3 */
@@ -809,6 +838,34 @@
   var micRaf = null;
   var micActive = false;
 
+  // The reveal button starts locked. It only becomes available after the mic
+  // has been granted AND a 5s "analysis" window has passed. (If the user denies
+  // permission, the button is unlocked immediately so the funnel doesn't break.)
+  var revealBtn = document.getElementById('voiceReveal');
+  var revealOriginalLabel = revealBtn.innerHTML;
+  revealBtn.disabled = true;
+  revealBtn.innerHTML = '🎤 ACTIVATE THE LISTENING FIRST';
+
+  function unlockReveal() {
+    revealBtn.disabled = false;
+    revealBtn.innerHTML = revealOriginalLabel;
+  }
+
+  function startRevealCountdown() {
+    var seconds = 5;
+    function fmt(n) { return n.toString(); }
+    revealBtn.innerHTML = '✦ ANALYZING YOUR VOICE... ' + fmt(seconds) + 's ✦';
+    var iv = setInterval(function() {
+      seconds--;
+      if (seconds > 0) {
+        revealBtn.innerHTML = '✦ ANALYZING YOUR VOICE... ' + fmt(seconds) + 's ✦';
+      } else {
+        clearInterval(iv);
+        unlockReveal();
+      }
+    }, 1000);
+  }
+
   function stopMic() {
     if (micRaf) cancelAnimationFrame(micRaf);
     micRaf = null;
@@ -833,6 +890,7 @@
       errorEl.textContent = '✦ This browser does not support microphone access.';
       errorEl.hidden = false;
       btn.disabled = true;
+      unlockReveal(); // don't trap users on unsupported browsers
       return;
     }
 
@@ -857,9 +915,12 @@
           var sum = 0;
           for (var i = 0; i < data.length; i++) sum += data[i];
           var avg = sum / data.length;
-          // Normalize: 0 (silence) -> ~1 (loud speaking). Sensitivity tuned for speech.
-          var raw = Math.min(1, Math.max(0, (avg - 4) / 80));
-          smoothed += (raw - smoothed) * 0.35; // exponential smoothing
+          // Normalize: tighter sensitivity (was /80, now /48) so even a quiet
+          // voice produces a clearly visible glow.
+          var raw = Math.min(1, Math.max(0, (avg - 3) / 48));
+          // Power curve: amplifies mid-range so the glow feels alive, not linear.
+          var shaped = Math.pow(raw, 0.55);
+          smoothed += (shaped - smoothed) * 0.4;
           card.style.setProperty('--voice-level', smoothed.toFixed(3));
           micRaf = requestAnimationFrame(tick);
         }
@@ -870,6 +931,9 @@
         errorEl.hidden = true;
         micActive = true;
         tick();
+
+        // Now begin the 5s "sacred analysis" countdown before unlocking the reveal button
+        startRevealCountdown();
       })
       .catch(function(err) {
         console.warn('Mic denied or unavailable:', err);
@@ -877,6 +941,8 @@
         btn.style.opacity = '0.55';
         btn.querySelector('span').textContent = 'MICROPHONE NOT AVAILABLE';
         errorEl.hidden = false;
+        // Don't trap the user — let them continue without mic
+        unlockReveal();
       });
   });
 
