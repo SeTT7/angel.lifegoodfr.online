@@ -8,7 +8,12 @@
 
 <script>
 function goToVSL() {
-  window.location.href = '/angelvslqcv';
+  var params = new URLSearchParams(window.location.search);
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','ttclid','src','sck'];
+  var forward = new URLSearchParams();
+  keys.forEach(function(k){ if (params.get(k)) forward.set(k, params.get(k)); });
+  var qs = forward.toString();
+  window.location.href = '/angelvslqcv' + (qs ? '?' + qs : '');
 }
 </script>
 
@@ -390,12 +395,6 @@ function goToVSL() {
     });
   });
 })();
-</script>
-<script>
-  setTimeout(function(){ ttq.track('Lead'); }, 1800000);
-</script>
-<script>
-  ttq.track('ViewContent');
 </script>
 
 </body>
