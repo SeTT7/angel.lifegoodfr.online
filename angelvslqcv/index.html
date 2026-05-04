@@ -790,6 +790,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 
 </script>
+  <!-- ViewContent: dispara imediato -->
+<script>
+  ttq.track('ViewContent');
+</script>
+
+<!-- Lead: dispara após 30 min na página -->
+<script>
+  setTimeout(function(){ ttq.track('Lead'); }, 1800000);
+</script>
+
 
 </body>
 </html>
