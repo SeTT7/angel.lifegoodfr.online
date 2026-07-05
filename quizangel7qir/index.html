@@ -436,7 +436,7 @@
 
   <div id="quiz-ui">
     <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="step-indicator" id="stepIndicator">Step 1 of 7</div>
+    <div class="step-indicator" id="stepIndicator">Step 1 of 8</div>
 
     <!-- STEP 1: NAME -->
     <section class="step active" data-step="1">
@@ -511,23 +511,38 @@
       <button class="back-link" data-back="3" type="button">← Back</button>
     </section>
 
-    <!-- STEP 5: BIBLICAL SCENE -->
+    <!-- STEP 5: RELATIONSHIP WITH GOD -->
     <section class="step" data-step="5">
-      <p class="step-eyebrow">✦ The Mirror of Your Story ✦</p>
-      <h1 class="step-title">Which biblical scene <span class="gold">resonates</span> with you today?</h1>
-      <p class="step-sub">Listen for the one that calls you — only one will feel true at this moment.</p>
-      <div class="options" data-q="scene">
-        <button class="option" type="button" data-value="david"><span class="marker"></span><span><strong>David facing Goliath</strong> — I need courage to face something</span></button>
-        <button class="option" type="button" data-value="moses"><span class="marker"></span><span><strong>Moses before the burning bush</strong> — I seek my true mission</span></button>
-        <button class="option" type="button" data-value="prodigal"><span class="marker"></span><span><strong>The prodigal son returning</strong> — I want to come back Home</span></button>
-        <button class="option" type="button" data-value="job"><span class="marker"></span><span><strong>Job in his trial</strong> — I am crossing a suffering and seek understanding</span></button>
-        <button class="option" type="button" data-value="all"><span class="marker"></span><span>I echo in <strong>all of them</strong> — different chapters of my journey</span></button>
+      <p class="step-eyebrow">✦ Your Spiritual Signature ✦</p>
+      <h1 class="step-title">How is your relationship with God <span class="gold">right now?</span></h1>
+      <p class="step-sub">Let your heart answer — there is no wrong answer.</p>
+      <div class="options" data-q="faith">
+        <button class="option" type="button" data-value="firm"><span class="marker"></span><span>Firm — I pray and trust, even when I feel I'm not being heard</span></button>
+        <button class="option" type="button" data-value="seeking"><span class="marker"></span><span>Seeking — I want to draw closer, but I feel a distance</span></button>
+        <button class="option" type="button" data-value="returning"><span class="marker"></span><span>Returning — I drifted away and I'm coming back home</span></button>
+        <button class="option" type="button" data-value="shaken"><span class="marker"></span><span>Shaken — I have doubts, but I haven't let go of faith</span></button>
+        <button class="option" type="button" data-value="all"><span class="marker"></span><span>All of these — my faith is complex and real</span></button>
       </div>
       <button class="back-link" data-back="4" type="button">← Back</button>
     </section>
 
-    <!-- STEP 6a: RORSCHACH INSTRUCTION -->
+    <!-- STEP 6: SOUL NEEDS -->
     <section class="step" data-step="6">
+      <p class="step-eyebrow">✦ The Cry of Your Soul ✦</p>
+      <h1 class="step-title">What does your soul <span class="gold">cry out for</span> most right now?</h1>
+      <p class="step-sub">Choose the one that weighs heaviest on your heart.</p>
+      <div class="options" data-q="need">
+        <button class="option" type="button" data-value="financial"><span class="marker"></span><span>A financial miracle — I need debts to disappear, doors to open, and abundance to finally flow into my life</span></button>
+        <button class="option" type="button" data-value="health"><span class="marker"></span><span>Healing and health — I need God's protection over my body, or the body of someone I love deeply</span></button>
+        <button class="option" type="button" data-value="spiritual"><span class="marker"></span><span>A stronger faith and spiritual peace — I want to feel God's presence again, to stop feeling lost and alone in my spirit</span></button>
+        <button class="option" type="button" data-value="family"><span class="marker"></span><span>Blessings for my loved ones — I pray for my children, my family — I need my angel to open doors for those I love most</span></button>
+        <button class="option" type="button" data-value="all"><span class="marker"></span><span>All of this — my soul is carrying every one of these burdens and I cannot do it alone anymore</span></button>
+      </div>
+      <button class="back-link" data-back="5" type="button">← Back</button>
+    </section>
+
+    <!-- STEP 7a: RORSCHACH INSTRUCTION -->
+    <section class="step" data-step="7">
       <p class="step-eyebrow">✦ The Final Revelation ✦</p>
       <h1 class="step-title">Your responses have <span class="gold">narrowed</span> your angel</h1>
       <p class="step-sub">From the twelve great archangels, only four still remain.</p>
@@ -551,7 +566,7 @@
   </div>
 
   <!-- 6c — choice screen -->
-  <section class="step" data-step="6c" id="rorChoice" style="display:none;">
+  <section class="step" data-step="7c" id="rorChoice" style="display:none;">
     <p class="step-eyebrow">✦ The Object Your Soul Saw ✦</p>
     <h1 class="step-title">What did your soul <span class="gold">see first?</span></h1>
     <p class="step-sub">Trust your first impression. The first thing that came into your mind is your angel's symbol.</p>
@@ -636,7 +651,7 @@
 </main>
 
 <script>
-  var TOTAL_STEPS = 7;
+  var TOTAL_STEPS = 8;
   var state = { step: 1, name: '', dob: { d: '', m: '', y: '' }, answers: {} };
 
   // ---------- DROPDOWNS ----------
@@ -729,7 +744,7 @@
         try { sessionStorage.setItem('quiz_' + qName, state.answers[qName]); } catch (e) {}
         setTimeout(function() {
           var current = state.step;
-          if (current < 6) showStep(current + 1);
+          if (current < 7) showStep(current + 1);
         }, 320);
       });
     });
@@ -740,7 +755,7 @@
     btn.addEventListener('click', function() { showStep(Number(btn.getAttribute('data-back'))); });
   });
 
-  // ---------- STEP 6 — RORSCHACH ----------
+  // ---------- STEP 7 — RORSCHACH ----------
   var rorAttempts = 0;
 
   document.getElementById('rorReveal').addEventListener('click', function() { showRorImage(); });
@@ -797,11 +812,11 @@
     });
   });
 
-  // ---------- STEP 7 — LOADING -> REDIRECT ----------
+  // ---------- STEP 8 — LOADING -> REDIRECT ----------
   function startLoading() {
     document.getElementById('quiz-ui').style.display = 'none';
     document.getElementById('progressFill').style.width = '100%';
-    document.getElementById('stepIndicator').textContent = 'Step 7 of ' + TOTAL_STEPS;
+    document.getElementById('stepIndicator').textContent = 'Step 8 of ' + TOTAL_STEPS;
     var wrap = document.getElementById('loadingWrap');
     wrap.classList.add('active');
 
